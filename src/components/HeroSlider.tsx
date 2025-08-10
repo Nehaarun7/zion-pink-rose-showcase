@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import heroSlider1 from '@/assets/hero-slider-1.jpg';
 import heroSlider2 from '@/assets/hero-slider-2.jpg';
@@ -28,12 +28,25 @@ const slides = [
 
 const HeroSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth) * 20,
+        y: (e.clientY / window.innerHeight) * 20
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   const nextSlide = () => {
@@ -57,27 +70,41 @@ const HeroSlider = () => {
             <img
               src={slide.image}
               alt={slide.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover parallax-element"
+              style={{
+                transform: `translate(${mousePosition.x * 0.5}px, ${mousePosition.y * 0.5}px) scale(1.05)`
+              }}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-soft-white/80 to-transparent"></div>
+            
+            {/* Floating decorative elements */}
+            <div className="absolute top-20 right-20 animate-float">
+              <Sparkles className="h-8 w-8 text-rose-gold opacity-60" />
+            </div>
+            <div className="absolute bottom-32 left-20 animate-float" style={{ animationDelay: '2s' }}>
+              <Sparkles className="h-6 w-6 text-rose-medium opacity-40" />
+            </div>
+            <div className="absolute top-1/3 right-1/3 animate-float" style={{ animationDelay: '4s' }}>
+              <Sparkles className="h-4 w-4 text-rose-light opacity-50" />
+            </div>
             
             <div className="absolute inset-0 flex items-center">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="max-w-2xl">
-                  <h1 className="text-5xl md:text-7xl font-serif font-bold text-foreground mb-4 animate-fade-in-up">
+                  <h1 className="text-5xl md:text-7xl font-serif font-bold text-foreground mb-4 animate-fade-in-up hover-glow">
                     {slide.title}
                   </h1>
-                  <p className="text-xl md:text-2xl text-rose-medium mb-4 animate-fade-in-up">
+                  <p className="text-xl md:text-2xl text-rose-medium mb-4 animate-slide-in-left animate-pulse-soft">
                     {slide.subtitle}
                   </p>
-                  <p className="text-lg text-muted-foreground mb-8 animate-fade-in-up">
+                  <p className="text-lg text-muted-foreground mb-8 animate-slide-in-right">
                     {slide.description}
                   </p>
-                  <div className="flex gap-4 animate-fade-in-up">
-                    <Button className="btn-hero">
+                  <div className="flex gap-4 animate-scale-in">
+                    <Button className="btn-hero hover-lift animate-glow">
                       Explore Collection
                     </Button>
-                    <Button className="btn-outline-rose">
+                    <Button className="btn-outline-rose hover-lift">
                       Learn More
                     </Button>
                   </div>
@@ -92,7 +119,7 @@ const HeroSlider = () => {
       <Button
         variant="outline"
         size="icon"
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-soft-white/80 hover:bg-soft-white border-rose-light"
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 glass-effect hover:bg-soft-white border-rose-light hover-lift transition-all duration-300"
         onClick={prevSlide}
       >
         <ChevronLeft className="h-6 w-6" />
@@ -100,7 +127,7 @@ const HeroSlider = () => {
       <Button
         variant="outline"
         size="icon"
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-soft-white/80 hover:bg-soft-white border-rose-light"
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 glass-effect hover:bg-soft-white border-rose-light hover-lift transition-all duration-300"
         onClick={nextSlide}
       >
         <ChevronRight className="h-6 w-6" />

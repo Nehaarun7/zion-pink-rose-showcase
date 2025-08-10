@@ -34,34 +34,38 @@ const AboutSection = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
-          <div className="space-y-6">
-            <h3 className="text-3xl font-serif font-semibold text-foreground">
+          <div className="space-y-6 animate-slide-in-left">
+            <h3 className="text-3xl font-serif font-semibold text-foreground hover-glow transition-all duration-500">
               Our Story
             </h3>
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p className="text-lg text-muted-foreground leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
               Zion Ladies Collections was born from a passion for beautiful, high-quality accessories 
               that make every woman feel special. We believe that the right accessory can transform 
               not just an outfit, but how you feel about yourself.
             </p>
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p className="text-lg text-muted-foreground leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
               Our carefully curated collection features pieces from renowned designers and emerging 
               artists, each selected for its unique beauty, exceptional quality, and ability to 
               complement the modern woman's lifestyle.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 gap-6">
+          <div className="grid grid-cols-1 gap-6 animate-slide-in-right">
             {features.map((feature, index) => (
-              <div key={index} className="card-elegant">
+              <div 
+                key={index} 
+                className="card-elegant hover-lift group"
+                style={{ animationDelay: `${index * 0.2}s` }}
+              >
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0">
-                    <feature.icon className="h-8 w-8 text-primary" />
+                    <feature.icon className="h-8 w-8 text-primary group-hover:text-rose-gold group-hover:scale-110 transition-all duration-300 animate-float" />
                   </div>
                   <div>
-                    <h4 className="text-xl font-semibold text-foreground mb-2">
+                    <h4 className="text-xl font-semibold text-foreground mb-2 group-hover:text-rose-dark transition-colors duration-300">
                       {feature.title}
                     </h4>
-                    <p className="text-muted-foreground">
+                    <p className="text-muted-foreground group-hover:text-rose-medium transition-colors duration-300">
                       {feature.description}
                     </p>
                   </div>

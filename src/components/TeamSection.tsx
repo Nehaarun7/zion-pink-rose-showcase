@@ -41,31 +41,35 @@ const TeamSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {teamMembers.map((member, index) => (
-            <div key={index} className="text-center group">
-              <div className="bg-soft-white/95 rounded-2xl p-8 card-elegant backdrop-blur-sm">
-                <div className="w-24 h-24 bg-rose-light rounded-full mx-auto mb-6 flex items-center justify-center">
-                  <Heart className="h-10 w-10 text-primary" />
+            <div 
+              key={index} 
+              className="text-center group hover-lift animate-scale-in"
+              style={{ animationDelay: `${index * 0.3}s` }}
+            >
+              <div className="bg-soft-white/95 rounded-2xl p-8 card-elegant backdrop-blur-sm group-hover:shadow-rose transition-all duration-700">
+                <div className="w-24 h-24 bg-rose-light rounded-full mx-auto mb-6 flex items-center justify-center group-hover:bg-rose-gold group-hover:scale-110 transition-all duration-500 animate-float">
+                  <Heart className="h-10 w-10 text-primary group-hover:text-soft-white transition-colors duration-300 animate-glow" />
                 </div>
                 
-                <h3 className="text-2xl font-serif font-semibold text-foreground mb-2">
+                <h3 className="text-2xl font-serif font-semibold text-foreground mb-2 group-hover:text-rose-dark transition-colors duration-300">
                   {member.name}
                 </h3>
                 
-                <p className="text-primary font-medium mb-4">
+                <p className="text-primary font-medium mb-4 group-hover:text-rose-gold animate-pulse-soft transition-colors duration-300">
                   {member.role}
                 </p>
                 
-                <p className="text-muted-foreground mb-6 leading-relaxed">
+                <p className="text-muted-foreground mb-6 leading-relaxed group-hover:text-rose-dark transition-colors duration-300">
                   {member.description}
                 </p>
                 
                 <div className="space-y-2">
-                  <div className="flex items-center justify-center text-muted-foreground">
-                    <MapPin className="h-4 w-4 mr-2" />
+                  <div className="flex items-center justify-center text-muted-foreground group-hover:text-rose-medium transition-colors duration-300">
+                    <MapPin className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform duration-300" />
                     <span className="text-sm">{member.location}</span>
                   </div>
-                  <div className="flex items-center justify-center text-primary">
-                    <Star className="h-4 w-4 mr-2" />
+                  <div className="flex items-center justify-center text-primary group-hover:text-rose-gold transition-colors duration-300">
+                    <Star className="h-4 w-4 mr-2 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 animate-glow" />
                     <span className="text-sm font-medium">{member.speciality}</span>
                   </div>
                 </div>
